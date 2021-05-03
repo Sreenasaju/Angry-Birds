@@ -56,7 +56,10 @@ function setup(){
 }
 
 function draw(){
-    background(backgroundImg);
+    if(backgroundImg){
+        background(backgroundImg);
+    }
+    
     Engine.update(engine);
     
 
@@ -93,7 +96,9 @@ function mouseReleased(){
 }
 function keyPressed(){
     if(keyCode===32){
-        sling.Attach(bird.body)
+        sling.Attach(bird.body);
+        bird.trajectory=[];
+        Matter.Body.setPosition(bird.body,{ x : 200 , y: 50});
     }
 }
 
@@ -103,9 +108,9 @@ async function getTime(){
     var Time=responseJson.datetime;
     console.log(Time);
 
-    var hour = datetime.slice(11,13);
+    var hour = Time.slice(11,13);
     console.log(hour);
-    if (hour>=06 && hour<=18){
+    if (hour>=06 && hour<=17){
         backgroundImg = loadImage("sprites/bg.png");
     }
     else{
